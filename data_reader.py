@@ -4,9 +4,8 @@ def get_data(path):
     data = open(path,"r")
 
     content = data.readlines()
-
-    X = np.empty((250,100,60))
-    Y = np.empty((250,100))
+    X = np.zeros((1038,200,60))
+    Y = np.full((1038,200),201)
 
     i = 0
     for line in content:
@@ -21,19 +20,20 @@ def get_data(path):
             process_array = np.fromstring(task_feat[0],sep=",")
             setup_array = np.fromstring(task_feat[1],sep=",")
             task_array = np.zeros((60,))
-            task_array[:process_array.shape[0]+setup_array.shape[0]] = np.concatenate((process_array,setup_array))
+            task_array[:process_array.shape[0]] = process_array
+            task_array[30:30+setup_array.shape[0]] = setup_array
             X[i,j] = task_array
             j += 1
         #Output
         machines = instance[1].split("<ENDM>")
         j = 0
         for s in machines:
-            solution_array = np.fromstring(s,dtype=int, sep=",")
+            solution_array = np.fromstring(s,sep=",")
             if (j == 0):
                 solution_i = solution_array[:-1]
                 j = 1
             else:
                 solution_i = np.concatenate((solution_i,solution_array[:-1]))
-        Y[i] = solution_i
+        Y[i,:solution_i.shape[0]] = solution_i
         i += 1
-    return X, Y
+    return X[0:1200], Y[0:1200]

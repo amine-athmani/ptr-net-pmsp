@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-"order integer sequences of length given by n_steps"
-
 import numpy as np
 from keras.layers import LSTM, Input
 from keras.models import Model
@@ -21,8 +19,8 @@ if not sys.warnoptions:
 
 path = "data/data.ptr"
 
-split_at = 240
-batch_size = 40
+split_at = 1100
+batch_size = 64
 
 hidden_size = 64
 weights_file = 'model_weights.hdf5'
@@ -32,8 +30,13 @@ x, y = get_data(path)
 y = y-1
 
 YY = []
+i = 0
 for y_ in y:
-    YY.append(to_categorical(y_))
+    cat = to_categorical(y_)
+    if (cat.shape==(200,201)):
+        print(cat.shape)
+    YY.append(cat)
+    i += 1
 YY = np.asarray(YY)
 
 x_train = x[:split_at]
@@ -46,7 +49,7 @@ YY_test = YY[split_at:]
 print(YY.shape)
 
 print("building model...")
-main_input = Input(shape=(100, 60), name='main_input')
+main_input = Input(shape=(200, 60), name='main_input')
 
 encoder = LSTM(units=hidden_size, return_sequences=True, name="encoder")(main_input)
 print(encoder)
@@ -67,7 +70,6 @@ model.compile(optimizer='rmsprop',
 print('training and saving model weights each epoch...')
 
 validation_data = (x_test, YY_test)
-
 
 epoch_counter = 0
 

@@ -106,12 +106,17 @@ def main():
     solution_keys = solution_paths.keys()
     solution_keys = sorted(solution_keys, key=lambda solution_key: solution_key[1])
     for k in solution_keys:
-        print(k)
         if (k==("100","5")):
             for path_k in solution_paths.get(k):
                 path_infos = path_k.split("/")
-                print(path_k)
-    
+                instance_name = path_infos[8].replace("best_","")
+                instance_path = "../Benchmark_rm_sijk_cmax_metaheuristic/Set_ML_alpha_beta/"+path_infos[4]+"/"+path_infos[5]+"/"+path_infos[6]+"/"+instance_name+".txt"
+                print(instance_path)
+                f = open(instance_path,"r")
+                """output_file.write(write_instance(instance_path))
+                output_file.write(" output ")
+                output_file.write(write_solution(path_k))
+                output_file.write("\n")"""
     #print(write_instance("../Instances/I_100_5_S_1-149_0.1_0.4_10.txt"))
     #print(write_solution_ML("../Instances/Solution/best_I_100_5_S_1-149_0.1_0.4_10"))
 if __name__ == '__main__':

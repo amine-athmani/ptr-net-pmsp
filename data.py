@@ -99,6 +99,7 @@ def create_dataset():
     output_file.close()
 
 def main():
+    
     path = "../metaheuristic_rm_sijk_cmax/RES_GA1_(II_IMI_EI_ES_B)/ML_alpha_beta/"
     solution_paths = get_files_dict_ML(path)
     output_path = "data/data_alpha_beta.ptr"
@@ -113,10 +114,13 @@ def main():
                 instance_path = "../Benchmark_rm_sijk_cmax_metaheuristic/Set_ML_alpha_beta/"+path_infos[4]+"/"+path_infos[5]+"/"+path_infos[6]+"/"+instance_name+".txt"
                 output_file.write(write_instance(instance_path))
                 output_file.write(" output ")
-                output_file.write(write_solution(path_k))
+                output_file.write(write_solution_ML(path_k))
                 output_file.write("\n")
     output_file.close()
     
+    #print(write_instance("../Instances/I_100_5_S_1-149_0.1_0.4_10.txt"))
+    #print(write_solution_ML("../Instances/Solution/best_I_100_5_S_1-149_0.1_0.4_10"))
+
 if __name__ == '__main__':
     main()
 

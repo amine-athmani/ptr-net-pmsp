@@ -51,6 +51,7 @@ def get_files_dict_ML(path):
     for r, d, f in os.walk(path):
         for file in f:
             if '.xls' not in file:
+                print(file)
                 file_info = file.split("_")
                 files.setdefault((file_info[2],file_info[3]),[]).append(os.path.join(r, file))
 

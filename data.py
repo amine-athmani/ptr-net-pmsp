@@ -1,6 +1,6 @@
 import os
 import sys
-from statistics import mean 
+import numpy as np
 
 import reader as rd 
 
@@ -36,7 +36,7 @@ def write_instance(path):
         job_process = [ str(elem) for elem in instance[2][i] ]
         job_setup = []
         for S in instance[3]:
-            job_setup.append(str(mean(S[i])))
+            job_setup.append(str(np.mean(np.array(S[i]))))
         instance_formatted = (",".join(job_process))
         instance_formatted += "<ENDP>"
         instance_formatted += (",".join(job_setup))
@@ -76,6 +76,7 @@ def main():
     path = "../metaheuristic_rm_sijk_cmax/RES_GA1_(II_IMI_EI_ES_B)/ML_alpha_beta/"
     solution_paths = get_files_dict(path)
     print(solution_paths)
+    #print(write_instance("../Instances/I_100_5_S_1-149_0.1_0.4_10.txt"))
 
 if __name__ == '__main__':
     main()

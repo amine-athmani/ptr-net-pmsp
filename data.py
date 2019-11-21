@@ -55,6 +55,8 @@ def get_files_dict_ML(path):
                 file_info = file.split("_")
                 files.setdefault((file_info[2],file_info[3]),[]).append(os.path.join(r, file))
 
+    return (files)
+
 def create_dataset():
     path = "Solutions/Set_1"
     output_path = "data.ptr"

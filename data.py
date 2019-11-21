@@ -74,7 +74,7 @@ def create_dataset():
 
 def main():
     path = "../metaheuristic_rm_sijk_cmax/RES_GA1_(II_IMI_EI_ES_B)/ML_alpha_beta/"
-    solution_paths = get_files_dict(path)
+    solution_paths = get_files_dict_ML(path)
     print(solution_paths)
     #print(write_instance("../Instances/I_100_5_S_1-149_0.1_0.4_10.txt"))
 

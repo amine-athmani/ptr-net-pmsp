@@ -103,7 +103,6 @@ def main():
     solution_paths = get_files_dict_ML(path)
     output_path = "data/data_alpha_beta.ptr"
     output_file = open(output_path,"w")
-    solution_paths = get_files_dict(path)
     solution_keys = solution_paths.keys()
     solution_keys = sorted(solution_keys, key=lambda solution_key: solution_key[1])
     for k in solution_keys:

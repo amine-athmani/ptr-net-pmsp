@@ -98,8 +98,7 @@ def create_dataset():
             output_file.write("\n")
     output_file.close()
 
-def main():
-    
+def create_dataset_alpha_beta():   
     path = "../metaheuristic_rm_sijk_cmax/RES_GA1_(II_IMI_EI_ES_B)/ML_alpha_beta/"
     solution_paths = get_files_dict_ML(path)
     output_path = "data/data_alpha_beta.ptr"
@@ -107,16 +106,18 @@ def main():
     solution_keys = solution_paths.keys()
     solution_keys = sorted(solution_keys, key=lambda solution_key: solution_key[1])
     for k in solution_keys:
-        if (k==("100","5")):
-            for path_k in solution_paths.get(k):
-                path_infos = path_k.split("/")
-                instance_name = path_infos[8].replace("best_","")
-                instance_path = "../Benchmark_rm_sijk_cmax_metaheuristic/Set_ML_alpha_beta/"+path_infos[4]+"/"+path_infos[5]+"/"+path_infos[6]+"/"+instance_name+".txt"
-                output_file.write(write_instance(instance_path))
-                output_file.write(" output ")
-                output_file.write(write_solution_ML(path_k))
-                output_file.write("\n")
+        for path_k in solution_paths.get(k):
+            path_infos = path_k.split("/")
+            instance_name = path_infos[8].replace("best_","")
+            instance_path = "../Benchmark_rm_sijk_cmax_metaheuristic/Set_ML_alpha_beta/"+path_infos[4]+"/"+path_infos[5]+"/"+path_infos[6]+"/"+instance_name+".txt"
+            output_file.write(write_instance(instance_path))
+            output_file.write(" output ")
+            output_file.write(write_solution_ML(path_k))
+            output_file.write("\n")
     output_file.close()
+
+def main():
+    create_dataset_alpha_beta()
     
     #print(write_instance("../Instances/I_100_5_S_1-149_0.1_0.4_10.txt"))
     #print(write_solution_ML("../Instances/Solution/best_I_100_5_S_1-149_0.1_0.4_10"))

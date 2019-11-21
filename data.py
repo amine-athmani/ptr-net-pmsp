@@ -106,6 +106,7 @@ def create_dataset_alpha_beta():
     solution_keys = solution_paths.keys()
     solution_keys = sorted(solution_keys, key=lambda solution_key: solution_key[1])
     for k in solution_keys:
+        print(k)
         for path_k in solution_paths.get(k):
             path_infos = path_k.split("/")
             instance_name = path_infos[8].replace("best_","")

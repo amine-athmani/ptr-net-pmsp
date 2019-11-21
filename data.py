@@ -15,6 +15,30 @@ def write_solution(path):
             content_formatted+="<ENDM>"
     return(content_formatted)
 
+def write_solution_ML(path):
+    f = open(path,"r")
+    best_cmax = 99999
+    best_i = 1
+    i = 1
+    sequences = f.read().split("Best sequence is:\n")
+    for sequence in sequences[1:]:
+        content = sequence.split("\n")
+        if (i==0):
+            print(content)
+        cmax = int(content[-2])
+        if cmax < best_cmax:
+            best_cmax = cmax
+            best_i = i
+        i += 1
+    content_formatted = ""
+    content = sequences[best_i].split("\n")
+    #content_formatted = str(content[4:len(content)-2]).replace("[","").replace("]","<ENDM>").replace(" ","").replace("','","")
+    for i in range(0,len(content)-2):
+        content_formatted+=content[i].replace("[","").replace("]","").replace(" ","")
+        if (i != len(content)-2):
+            content_formatted+="<ENDM>"
+    return(content_formatted)
+
 def get_files_dict(path):
     files = {}
     i = 0
@@ -77,9 +101,19 @@ def create_dataset():
 def main():
     path = "../metaheuristic_rm_sijk_cmax/RES_GA1_(II_IMI_EI_ES_B)/ML_alpha_beta/"
     solution_paths = get_files_dict_ML(path)
-    print(solution_paths)
+    output_path = "data/data_alpha_beta.ptr"
+    output_file = open(output_path,"w")
+    solution_paths = get_files_dict(path)
+    solution_keys = solution_paths.keys()
+    solution_keys = sorted(solution_keys, key=lambda solution_key: solution_key[1])
+    for k in solution_keys:
+        if (k==("100","5")):
+            for path_k in solution_paths.get(k):
+                path_infos = path_k.split("/")
+                print(path_k)
+    
     #print(write_instance("../Instances/I_100_5_S_1-149_0.1_0.4_10.txt"))
-
+    #print(write_solution_ML("../Instances/Solution/best_I_100_5_S_1-149_0.1_0.4_10"))
 if __name__ == '__main__':
     main()
 

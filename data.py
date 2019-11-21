@@ -15,17 +15,6 @@ def write_solution(path):
             content_formatted+="<ENDM>"
     return(content_formatted)
 
-def write_solution(path):
-    f = open(path,"r")
-    content = f.read().split("\n")
-    content_formatted = ""
-    #content_formatted = str(content[4:len(content)-2]).replace("[","").replace("]","<ENDM>").replace(" ","").replace("','","")
-    for i in range(4,len(content)-2):
-        content_formatted+=content[i].replace("[","").replace("]","").replace(" ","")
-        if (i != len(content)-2):
-            content_formatted+="<ENDM>"
-    return(content_formatted)
-
 def get_files_dict(path):
     files = {}
     i = 0
@@ -56,8 +45,17 @@ def write_instance(path):
         all_instances += instance_formatted
     return all_instances
 
-def main():
-    """path = "Solutions/Set_1"
+def get_files_dict_ML(path):
+    files = {}
+    i = 0
+    for r, d, f in os.walk(path):
+        for file in f:
+            if '.xls' not in file:
+                file_info = file.split("_")
+                files.setdefault((file_info[2],file_info[3]),[]).append(os.path.join(r, file))
+
+def create_dataset():
+    path = "Solutions/Set_1"
     output_path = "data.ptr"
     output_file = open(output_path,"w")
     solution_paths = get_files_dict(path)
@@ -72,9 +70,12 @@ def main():
             output_file.write(" output ")
             output_file.write(write_solution(path_k))
             output_file.write("\n")
-    output_file.close()"""
-    print(write_instance("Instances/Set_1/200/30/9_49/1/I_200_30_S_9-49_5.txt"))
+    output_file.close()
 
+def main():
+    path = "../metaheuristic_rm_sijk_cmax/RES_GA1_(II_IMI_EI_ES_B)/ML_alpha_beta/"
+    solution_paths = get_files_dict(path)
+    print(solution_paths)
 
 if __name__ == '__main__':
     main()
